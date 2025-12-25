@@ -1,0 +1,17 @@
+pkgbase = synthesis-dark-marco-theme
+	pkgdesc = Synthesis Dark metacity/marco window theme with gradient titlebars, layered shadows, and SVG blur effects
+	pkgver = 1.0.0
+	pkgrel = 1
+	url = https://github.com/Oichkatzelesfrettschen/synthesis-dark-marco-theme
+	arch = any
+	license = GPL-3.0-or-later
+	depends = marco
+	depends = gtk3
+	optdepends = mate-desktop: MATE desktop environment
+	optdepends = imagemagick: for wallblur effects with companion scripts
+	provides = synthesis-dark-marco-theme
+	conflicts = synthesis-dark-marco-theme-git
+	source = synthesis-dark-marco-theme-1.0.0.tar.gz::https://github.com/Oichkatzelesfrettschen/synthesis-dark-marco-theme/archive/refs/tags/v1.0.0.tar.gz
+	sha256sums = SKIP
+
+pkgname = synthesis-dark-marco-theme
