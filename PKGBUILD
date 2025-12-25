@@ -16,7 +16,7 @@ optdepends=(
 provides=('synthesis-dark-marco-theme')
 conflicts=('synthesis-dark-marco-theme-git')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Oichkatzelesfrettschen/$pkgname/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('SKIP')
+sha256sums=('e3622a37357de8a333f947c752607517914b42fbe82d387195c804e7eda8f0f2')
 
 package() {
     local _srcdir="$srcdir/$pkgname-$pkgver"

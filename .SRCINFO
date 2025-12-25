@@ -12,6 +12,6 @@ pkgbase = synthesis-dark-marco-theme
 	provides = synthesis-dark-marco-theme
 	conflicts = synthesis-dark-marco-theme-git
 	source = synthesis-dark-marco-theme-1.0.0.tar.gz::https://github.com/Oichkatzelesfrettschen/synthesis-dark-marco-theme/archive/refs/tags/v1.0.0.tar.gz
-	sha256sums = SKIP
+	sha256sums = e3622a37357de8a333f947c752607517914b42fbe82d387195c804e7eda8f0f2
 
 pkgname = synthesis-dark-marco-theme
