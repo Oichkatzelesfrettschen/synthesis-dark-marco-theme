@@ -1,0 +1,220 @@
+<svg width="200" height="200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Filters for depth and glow effects -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="0" dy="1" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Button normal state -->
+  <g id="button">
+    <rect width="24" height="24" rx="3" fill="#313244" stroke="#44475a" stroke-width="1"/>
+  </g>
+
+  <!-- Button hover state -->
+  <g id="button-hover">
+    <rect width="24" height="24" rx="3" fill="#3e4153" stroke="#17b169" stroke-width="1" filter="url(#glow)"/>
+  </g>
+
+  <!-- Button pressed state -->
+  <g id="button-pressed">
+    <rect width="24" height="24" rx="3" fill="#17b169" stroke="#17b169" stroke-width="1"/>
+  </g>
+
+  <!-- Lineedit -->
+  <g id="lineedit">
+    <rect width="32" height="24" rx="3" fill="#1e1e2e" stroke="#44475a" stroke-width="1"/>
+  </g>
+
+  <!-- Lineedit focused -->
+  <g id="lineedit-focus">
+    <rect width="32" height="24" rx="3" fill="#1e1e2e" stroke="#17b169" stroke-width="1" filter="url(#glow)"/>
+  </g>
+
+  <!-- Tab normal -->
+  <g id="tab">
+    <rect width="32" height="24" rx="3" fill="#232530" stroke="#44475a" stroke-width="1"/>
+  </g>
+
+  <!-- Tab selected -->
+  <g id="tab-selected">
+    <rect width="32" height="24" rx="3" fill="#313244" stroke="#17b169" stroke-width="1"/>
+  </g>
+
+  <!-- Checkbox unchecked -->
+  <g id="checkbox">
+    <rect width="16" height="16" rx="3" fill="#1e1e2e" stroke="#44475a" stroke-width="1"/>
+  </g>
+
+  <!-- Checkbox checked -->
+  <g id="checkbox-checked">
+    <rect width="16" height="16" rx="3" fill="#17b169" stroke="#17b169" stroke-width="1"/>
+    <path d="M 4,8 L 7,11 L 12,5" stroke="#232530" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Radio unchecked -->
+  <g id="radio">
+    <circle cx="8" cy="8" r="7" fill="#1e1e2e" stroke="#44475a" stroke-width="1"/>
+  </g>
+
+  <!-- Radio checked -->
+  <g id="radio-checked">
+    <circle cx="8" cy="8" r="7" fill="#17b169" stroke="#17b169" stroke-width="1"/>
+    <circle cx="8" cy="8" r="3" fill="#232530"/>
+  </g>
+
+  <!-- Slider groove -->
+  <g id="slider">
+    <rect width="32" height="4" rx="2" fill="#1e1e2e" stroke="#44475a" stroke-width="1"/>
+  </g>
+
+  <!-- Slider cursor -->
+  <g id="slidercursor">
+    <circle cx="8" cy="8" r="8" fill="#f4f4f5" stroke="#17b169" stroke-width="2" filter="url(#shadow)"/>
+  </g>
+
+  <!-- Progressbar groove -->
+  <g id="progress">
+    <rect width="48" height="14" rx="3" fill="#1e1e2e" stroke="#44475a" stroke-width="1"/>
+  </g>
+
+  <!-- Progressbar indicator -->
+  <g id="progress-pattern">
+    <rect width="48" height="14" rx="3" fill="#17b169"/>
+  </g>
+
+  <!-- Scrollbar slider -->
+  <g id="scrollbarslider">
+    <rect width="12" height="40" rx="6" fill="#6c7086"/>
+  </g>
+
+  <!-- Scrollbar slider hover -->
+  <g id="scrollbarslider-hover">
+    <rect width="12" height="40" rx="6" fill="#17b169"/>
+  </g>
+
+  <!-- Scrollbar groove -->
+  <g id="scrollbargroove">
+    <rect width="12" height="100" fill="transparent"/>
+  </g>
+
+  <!-- Menu -->
+  <g id="menu">
+    <rect width="64" height="32" rx="3" fill="#232530" stroke="#44475a" stroke-width="1" filter="url(#shadow)"/>
+  </g>
+
+  <!-- Menu item selected -->
+  <g id="menuitem">
+    <rect width="64" height="24" rx="3" fill="#17b169"/>
+  </g>
+
+  <!-- Toolbar -->
+  <g id="toolbar">
+    <rect width="64" height="32" fill="#232530"/>
+    <line x1="0" y1="31" x2="64" y2="31" stroke="#44475a" stroke-width="1"/>
+  </g>
+
+  <!-- Menubar -->
+  <g id="menubar">
+    <rect width="64" height="28" fill="#232530"/>
+    <line x1="0" y1="27" x2="64" y2="27" stroke="#44475a" stroke-width="1"/>
+  </g>
+
+  <!-- Menubar item hover -->
+  <g id="menubaritem">
+    <rect width="32" height="24" rx="3" fill="#3e4153"/>
+  </g>
+
+  <!-- Itemview -->
+  <g id="itemview">
+    <rect width="64" height="48" rx="3" fill="#1e1e2e" stroke="#44475a" stroke-width="1"/>
+  </g>
+
+  <!-- Tab frame -->
+  <g id="tabframe">
+    <rect width="64" height="48" rx="3" fill="#232530" stroke="#44475a" stroke-width="1"/>
+  </g>
+
+  <!-- Tab bar frame -->
+  <g id="tabBarFrame">
+    <rect width="64" height="24" fill="#1e1e2e"/>
+  </g>
+
+  <!-- Combo box -->
+  <g id="combo">
+    <rect width="48" height="24" rx="3" fill="#1e1e2e" stroke="#44475a" stroke-width="1"/>
+  </g>
+
+  <!-- Tooltip -->
+  <g id="tooltip">
+    <rect width="48" height="24" rx="3" fill="#1e1e2e" stroke="#44475a" stroke-width="1" filter="url(#shadow)"/>
+  </g>
+
+  <!-- Header section -->
+  <g id="header">
+    <rect width="48" height="24" fill="#313244" stroke="#44475a" stroke-width="1"/>
+  </g>
+
+  <!-- Common frame -->
+  <g id="common">
+    <rect width="48" height="32" rx="3" fill="transparent" stroke="#44475a" stroke-width="1"/>
+  </g>
+
+  <!-- Focus indicator -->
+  <g id="focus">
+    <rect width="32" height="24" rx="3" fill="none" stroke="#17b169" stroke-width="2" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- Titlebar -->
+  <g id="titlebar">
+    <rect width="96" height="32" rx="12" fill="#232530"/>
+  </g>
+
+  <!-- Window -->
+  <g id="window">
+    <rect width="96" height="64" rx="12" fill="#232530"/>
+  </g>
+
+  <!-- Arrows -->
+  <g id="arrow-down">
+    <path d="M 4,6 L 8,10 L 12,6" stroke="#f4f4f5" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g id="arrow-up">
+    <path d="M 4,10 L 8,6 L 12,10" stroke="#f4f4f5" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g id="arrow-left">
+    <path d="M 10,4 L 6,8 L 10,12" stroke="#f4f4f5" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g id="arrow-right">
+    <path d="M 6,4 L 10,8 L 6,12" stroke="#f4f4f5" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Tree expander -->
+  <g id="tree">
+    <path d="M 6,4 L 10,8 L 6,12" stroke="#f4f4f5" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Resize grip -->
+  <g id="resize-grip">
+    <path d="M 8,2 L 14,8 M 4,6 L 14,16 M 0,10 L 10,20" stroke="#44475a" stroke-width="2" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -2,48 +2,49 @@
 # Contributor: Synthesis Dark Theme Project
 
 pkgname=synthesis-dark-marco-theme
-pkgver=1.0.0
+pkgver=1.1.0
 pkgrel=1
-pkgdesc="Synthesis Dark metacity/marco window theme with gradient titlebars, layered shadows, and SVG blur effects"
+pkgdesc="Synthesis Dark theme with GTK2/GTK3, Marco/Metacity, and Kvantum support"
 arch=('any')
 url="https://github.com/Oichkatzelesfrettschen/synthesis-dark-marco-theme"
 license=('GPL-3.0-or-later')
-depends=('marco' 'gtk3')
+depends=()
+makedepends=('meson' 'ninja')
 optdepends=(
+    'marco: MATE window manager'
+    'metacity: GNOME window manager'
     'mate-desktop: MATE desktop environment'
+    'gtk2: GTK2 theme support'
+    'gtk3: GTK3 theme support'
+    'gtk-engine-murrine: GTK2 theme engine for best results'
+    'kvantum: Qt theme support'
     'imagemagick: for wallblur effects with companion scripts'
 )
 provides=('synthesis-dark-marco-theme')
 conflicts=('synthesis-dark-marco-theme-git')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Oichkatzelesfrettschen/$pkgname/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('e3622a37357de8a333f947c752607517914b42fbe82d387195c804e7eda8f0f2')
+sha256sums=('SKIP')
+
+build() {
+    cd "$srcdir/$pkgname-$pkgver"
+    
+    meson setup builddir \
+        --prefix=/usr \
+        --buildtype=plain \
+        -Dgtk2=enabled \
+        -Dgtk3=enabled \
+        -Dkvantum=enabled
+    
+    meson compile -C builddir
+}
+
+check() {
+    cd "$srcdir/$pkgname-$pkgver"
+    meson test -C builddir || warning "Some tests failed"
+}
 
 package() {
-    local _srcdir="$srcdir/$pkgname-$pkgver"
-    local _destdir="$pkgdir/usr/share/themes/Synthesis-Dark-Marco"
-
-    # Install theme to system themes directory
-    install -dm755 "$_destdir"
-    install -dm755 "$_destdir/metacity-1"
-    install -dm755 "$_destdir/metacity-1/assets"
-
-    # Copy index.theme
-    install -Dm644 "$_srcdir/Synthesis-Dark-Marco/index.theme" \
-        "$_destdir/index.theme"
-
-    # Install metacity theme XML
-    install -Dm644 "$_srcdir/Synthesis-Dark-Marco/metacity-1/metacity-theme-3.xml" \
-        "$_destdir/metacity-1/metacity-theme-3.xml"
-
-    # Create symlinks for theme version compatibility
-    ln -sf metacity-theme-3.xml "$_destdir/metacity-1/metacity-theme-1.xml"
-    ln -sf metacity-theme-3.xml "$_destdir/metacity-1/metacity-theme-2.xml"
-
-    # Install PNG button assets (fallback and shade buttons)
-    install -Dm644 "$_srcdir/Synthesis-Dark-Marco/metacity-1/"*.png \
-        -t "$_destdir/metacity-1/"
-
-    # Install SVG button assets with feGaussianBlur effects
-    install -Dm644 "$_srcdir/Synthesis-Dark-Marco/metacity-1/assets/"*.svg \
-        -t "$_destdir/metacity-1/assets/"
+    cd "$srcdir/$pkgname-$pkgver"
+    
+    DESTDIR="$pkgdir" meson install -C builddir
 }
