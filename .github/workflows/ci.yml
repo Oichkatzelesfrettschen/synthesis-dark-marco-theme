@@ -150,7 +150,13 @@ jobs:
     - name: Check for trailing whitespace
       run: |
         echo "Checking for trailing whitespace..."
-        ! find Synthesis-Dark-Marco -type f \( -name "*.css" -o -name "*.xml" -o -name "*.kvconfig" \) -exec grep -l '[[:space:]]$' {} +
+        files_with_trailing=$(find Synthesis-Dark-Marco -type f \( -name "*.css" -o -name "*.xml" -o -name "*.kvconfig" \) -exec grep -l '[[:space:]]$' {} + || true)
+        if [ -n "$files_with_trailing" ]; then
+          echo "Files with trailing whitespace found:"
+          echo "$files_with_trailing"
+          exit 1
+        fi
+        echo "No trailing whitespace found."
         
     - name: Validate PKGBUILD
       run: |

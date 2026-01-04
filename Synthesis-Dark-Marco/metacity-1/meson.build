@@ -94,9 +94,12 @@ foreach svg : svg_assets
 endforeach
 
 # Create symlinks for theme version compatibility
-meson.add_install_script('sh', '-c',
-  'ln -sf metacity-theme-3.xml "$MESON_INSTALL_DESTDIR_PREFIX/' + theme_dir + '/metacity-1/metacity-theme-1.xml"'
+install_symlink('metacity-theme-1.xml',
+  pointing_to: 'metacity-theme-3.xml',
+  install_dir: join_paths(theme_dir, 'metacity-1')
 )
-meson.add_install_script('sh', '-c',
-  'ln -sf metacity-theme-3.xml "$MESON_INSTALL_DESTDIR_PREFIX/' + theme_dir + '/metacity-1/metacity-theme-2.xml"'
+
+install_symlink('metacity-theme-2.xml',
+  pointing_to: 'metacity-theme-3.xml',
+  install_dir: join_paths(theme_dir, 'metacity-1')
 )

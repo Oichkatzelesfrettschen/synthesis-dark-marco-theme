@@ -56,16 +56,15 @@
 * {
     padding: 0;
     -gtk-icon-style: symbolic;
-    outline-style: none;
-    outline-width: 0;
-    -gtk-outline-radius: 3px;
 }
 
+/* Focus indicators - visible by default for accessibility */
 *:focus {
     outline-color: alpha(@accent_teal, 0.5);
     outline-style: solid;
     outline-width: 2px;
     outline-offset: -2px;
+    -gtk-outline-radius: 3px;
 }
 
 /* === Base Window === */

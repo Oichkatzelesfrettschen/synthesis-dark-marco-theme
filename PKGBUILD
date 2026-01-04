@@ -23,7 +23,7 @@ optdepends=(
 provides=('synthesis-dark-marco-theme')
 conflicts=('synthesis-dark-marco-theme-git')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Oichkatzelesfrettschen/$pkgname/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('SKIP')
+sha256sums=('SKIP')  # TODO: Update with actual checksum when tagged release is created
 
 build() {
     cd "$srcdir/$pkgname-$pkgver"
