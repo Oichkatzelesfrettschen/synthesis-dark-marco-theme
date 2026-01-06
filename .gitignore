@@ -1,0 +1,42 @@
+# Build artifacts
+build/
+dist/
+*.tar.gz
+*.tar.xz
+*.tar.bz2
+*.zip
+
+# Package build directories
+pkg/
+src/
+
+# Meson build
+builddir/
+meson-logs/
+meson-private/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test results
+test-results/
+coverage/
+*.log
+
+# Temporary files
+tmp/
+*.tmp

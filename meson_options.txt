@@ -1,0 +1,17 @@
+option('gtk2',
+  type: 'feature',
+  value: 'enabled',
+  description: 'Build and install GTK2 theme'
+)
+
+option('gtk3',
+  type: 'feature',
+  value: 'enabled',
+  description: 'Build and install GTK3 theme'
+)
+
+option('kvantum',
+  type: 'feature',
+  value: 'enabled',
+  description: 'Build and install Kvantum (Qt) theme'
+)

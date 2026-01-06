@@ -1,0 +1,178 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+# Set minimal permissions for security
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate Theme Files
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Install validation tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libxml2-utils shellcheck
+        
+    - name: Validate XML files
+      run: |
+        echo "Validating metacity theme XML..."
+        xmllint --noout Synthesis-Dark-Marco/metacity-1/metacity-theme-3.xml
+        
+    - name: Validate SVG files
+      run: |
+        echo "Validating SVG assets..."
+        for svg in Synthesis-Dark-Marco/metacity-1/assets/*.svg; do
+          xmllint --noout "$svg" || exit 1
+        done
+        for svg in Synthesis-Dark-Marco/Kvantum/SynthesisDark/*.svg; do
+          xmllint --noout "$svg" || exit 1
+        done
+        
+    - name: Check CSS syntax
+      run: |
+        echo "Checking GTK3 CSS..."
+        # Basic syntax check - ensure file is readable and has no obvious errors
+        if [ ! -f "Synthesis-Dark-Marco/gtk-3.0/gtk.css" ]; then
+          echo "Error: gtk.css not found!"
+          exit 1
+        fi
+        # Check for unclosed braces
+        python3 << 'EOF'
+        import sys
+        with open('Synthesis-Dark-Marco/gtk-3.0/gtk.css', 'r') as f:
+            content = f.read()
+            open_braces = content.count('{')
+            close_braces = content.count('}')
+            if open_braces != close_braces:
+                print(f"Error: Mismatched braces in CSS: {open_braces} open, {close_braces} close")
+                sys.exit(1)
+            else:
+                print(f"✓ CSS syntax check passed: {open_braces} matched brace pairs")
+        EOF
+
+  build:
+    name: Build Theme
+    runs-on: ubuntu-latest
+    needs: validate
+    permissions:
+      contents: read
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y meson ninja-build
+        
+    - name: Configure build
+      run: |
+        meson setup builddir --prefix=/usr
+        
+    - name: Build
+      run: |
+        meson compile -C builddir
+        
+    - name: Run tests
+      run: |
+        meson test -C builddir -v
+        
+    - name: Install to staging
+      run: |
+        DESTDIR=$PWD/staging meson install -C builddir
+        
+    - name: Verify installation
+      run: |
+        echo "Checking installed files..."
+        ls -la staging/usr/share/themes/Synthesis-Dark-Marco/
+        
+        # Verify critical files exist
+        test -f staging/usr/share/themes/Synthesis-Dark-Marco/index.theme
+        test -f staging/usr/share/themes/Synthesis-Dark-Marco/metacity-1/metacity-theme-3.xml
+        test -f staging/usr/share/themes/Synthesis-Dark-Marco/gtk-2.0/gtkrc
+        test -f staging/usr/share/themes/Synthesis-Dark-Marco/gtk-3.0/gtk.css
+        test -f staging/usr/share/Kvantum/SynthesisDark/SynthesisDark.kvconfig
+        
+        echo "✓ All critical files present"
+        
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: synthesis-dark-theme-build
+        path: staging/
+
+  package:
+    name: Create Distribution Packages
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: read
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Create tarball
+      run: |
+        version=$(grep 'pkgver=' PKGBUILD | cut -d'=' -f2)
+        tar czf synthesis-dark-marco-theme-${version}.tar.gz \
+          --exclude='.git' \
+          --exclude='builddir' \
+          --exclude='*.tar.gz' \
+          --transform "s,^,synthesis-dark-marco-theme-${version}/," \
+          .
+          
+    - name: Upload tarball
+      uses: actions/upload-artifact@v4
+      with:
+        name: source-tarball
+        path: "*.tar.gz"
+
+  lint:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Check file permissions
+      run: |
+        echo "Checking for executable files that shouldn't be..."
+        find Synthesis-Dark-Marco -type f \( -name "*.css" -o -name "*.xml" -o -name "*.svg" -o -name "*.png" \) -executable
+        
+    - name: Check for trailing whitespace
+      run: |
+        echo "Checking for trailing whitespace..."
+        files_with_trailing=$(find Synthesis-Dark-Marco -type f \( -name "*.css" -o -name "*.xml" -o -name "*.kvconfig" \) -exec grep -l '[[:space:]]$' {} + || true)
+        if [ -n "$files_with_trailing" ]; then
+          echo "Files with trailing whitespace found:"
+          echo "$files_with_trailing"
+          exit 1
+        fi
+        echo "No trailing whitespace found."
+        
+    - name: Validate PKGBUILD
+      run: |
+        if command -v shellcheck >/dev/null 2>&1; then
+          echo "Checking PKGBUILD syntax..."
+          shellcheck -s bash PKGBUILD || echo "Warning: shellcheck found issues"
+        fi

@@ -1,0 +1,325 @@
+# Synthesis Dark GTK2 Theme
+# Based on Dracula/Catppuccin color schemes with CachyOS accents
+
+# Color definitions matching the metacity theme
+gtk-color-scheme = "bg_color:#232530\nfg_color:#f4f4f5"
+gtk-color-scheme = "base_color:#1e1e2e\ntext_color:#f4f4f5"
+gtk-color-scheme = "selected_bg_color:#17b169\nselected_fg_color:#232530"
+gtk-color-scheme = "tooltip_bg_color:#1e1e2e\ntooltip_fg_color:#f4f4f5"
+gtk-color-scheme = "link_color:#89dceb"
+
+# Widget-specific colors
+gtk-color-scheme = "menu_bg:#232530"
+gtk-color-scheme = "toolbar_bg:#232530"
+gtk-color-scheme = "panel_bg:#1e1e2e"
+
+# Accent colors
+gtk-color-scheme = "accent_teal:#17b169"
+gtk-color-scheme = "accent_red:#f38ba8"
+gtk-color-scheme = "accent_yellow:#f9e2af"
+gtk-color-scheme = "accent_blue:#89b4fa"
+
+# Border colors
+gtk-color-scheme = "border_color:#44475a"
+gtk-color-scheme = "insensitive_border:#383a4a"
+
+# Button states
+gtk-color-scheme = "button_bg:#313244"
+gtk-color-scheme = "button_fg:#f4f4f5"
+gtk-color-scheme = "button_hover_bg:#3e4153"
+gtk-color-scheme = "button_active_bg:#17b169"
+
+gtk-icon-sizes = "panel-menu=24,24:panel=24,24:gtk-menu=16,16:gtk-button=16,16"
+
+style "default" {
+    xthickness = 1
+    ythickness = 1
+
+    GtkWidget::interior-focus = 1
+    GtkWidget::focus-line-width = 1
+    GtkWidget::focus-padding = 0
+
+    GtkButton::default-border = { 0, 0, 0, 0 }
+    GtkButton::default-outside-border = { 0, 0, 0, 0 }
+    GtkButton::child-displacement-x = 0
+    GtkButton::child-displacement-y = 0
+
+    GtkCheckButton::indicator-size = 16
+    GtkRadioButton::indicator-size = 16
+
+    GtkEntry::honors-transparent-bg-hint = 1
+    GtkEntry::progress-border = { 2, 2, 2, 2 }
+
+    GtkProgressBar::min-horizontal-bar-height = 14
+    GtkProgressBar::min-vertical-bar-width = 14
+
+    GtkExpander::expander-size = 16
+    GtkTreeView::expander-size = 14
+    GtkTreeView::vertical-separator = 0
+
+    GtkMenu::horizontal-padding = 0
+    GtkMenu::vertical-padding = 0
+
+    GtkScrollbar::min-slider-length = 30
+    GtkScrollbar::slider-width = 12
+    GtkScrollbar::trough-border = 0
+    GtkScrollbar::has-backward-stepper = 0
+    GtkScrollbar::has-forward-stepper = 0
+
+    GtkRange::trough-border = 0
+    GtkRange::slider-width = 12
+    GtkRange::stepper-size = 0
+
+    GtkScale::slider-length = 16
+    GtkScale::slider-width = 16
+    GtkScale::trough-side-details = 1
+
+    GtkScrolledWindow::scrollbar-spacing = 0
+    GtkScrolledWindow::scrollbars-within-bevel = 1
+
+    GtkTreeView::allow-rules = 1
+    GtkTreeView::odd_row_color = "#232530"
+    GtkTreeView::even_row_color = "#1e1e2e"
+
+    # Colors
+    fg[NORMAL]        = @fg_color
+    fg[PRELIGHT]      = @fg_color
+    fg[SELECTED]      = @selected_fg_color
+    fg[ACTIVE]        = @fg_color
+    fg[INSENSITIVE]   = shade(0.6, @fg_color)
+
+    bg[NORMAL]        = @bg_color
+    bg[PRELIGHT]      = shade(1.05, @bg_color)
+    bg[SELECTED]      = @selected_bg_color
+    bg[ACTIVE]        = shade(0.95, @bg_color)
+    bg[INSENSITIVE]   = @bg_color
+
+    base[NORMAL]      = @base_color
+    base[PRELIGHT]    = shade(1.05, @base_color)
+    base[SELECTED]    = @selected_bg_color
+    base[ACTIVE]      = @selected_bg_color
+    base[INSENSITIVE] = @bg_color
+
+    text[NORMAL]      = @text_color
+    text[PRELIGHT]    = @text_color
+    text[SELECTED]    = @selected_fg_color
+    text[ACTIVE]      = @selected_fg_color
+    text[INSENSITIVE] = shade(0.6, @text_color)
+
+    engine "murrine" {
+        animation           = TRUE
+        arrowstyle          = 1      # 0 = normal arrows, 1 = filled arrows
+        border_shades       = { 1.0, 0.9 }
+        colorize_scrollbar  = FALSE
+        contrast            = 0.8
+        focusstyle          = 3      # 0 = none, 1 = grey, 2 = colored, 3 = glow
+        glazestyle          = 0      # 0 = flat, 1 = curved, 2 = concave, 3 = top-curved, 4 = beryl
+        glow_shade          = 1.1
+        glowstyle           = 0      # 0 = glow on top, 1 = glow on bottom, 2 = glow on top and bottom, 3 = glow on center
+        gradient_shades     = { 1.0, 1.0, 1.0, 1.0 }
+        highlight_shade     = 1.0
+        lightborder_shade   = 1.0
+        lightborderstyle    = 0      # 0 = lightborder on top side, 1 = lightborder on all sides
+        listviewheaderstyle = 1      # 0 = flat, 1 = glassy, 2 = raised
+        listviewstyle       = 1      # 0 = none, 1 = dotted, 2 = line
+        menubaritemstyle    = 0      # 0 = menuitem look, 1 = button look
+        menubarstyle        = 0      # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+        menuitemstyle       = 0      # 0 = flat, 1 = glassy, 2 = striped
+        menustyle           = 0      # 0 = none, 1 = vertical striped
+        prelight_shade      = 1.05
+        progressbarstyle    = 0      # 0 = none, 1 = diagonal striped, 2 = vertical striped
+        reliefstyle         = 2      # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
+        rgba                = TRUE
+        roundness           = 3
+        scrollbarstyle      = 0      # 0 = none, 1 = circles, 2 = handles, 3 = diagonal stripes, 4 = diagonal stripes with circles, 5 = handles with circles
+        separatorstyle      = 1      # 0 = smooth separators, 1 = dashed separators
+        sliderstyle         = 0      # 0 = none, 1 = handles
+        stepperstyle        = 1      # 0 = standard, 1 = integrated stepper handles
+        toolbarstyle        = 1      # 0 = flat, 1 = glassy, 2 = gradient
+        trough_shades       = { 0.9, 1.1 }
+    }
+}
+
+style "button" {
+    xthickness = 3
+    ythickness = 3
+
+    bg[NORMAL]      = @button_bg
+    bg[PRELIGHT]    = @button_hover_bg
+    bg[ACTIVE]      = @button_active_bg
+    bg[SELECTED]    = @selected_bg_color
+    bg[INSENSITIVE] = @bg_color
+
+    fg[NORMAL]      = @button_fg
+    fg[PRELIGHT]    = @button_fg
+    fg[ACTIVE]      = @selected_fg_color
+    fg[SELECTED]    = @selected_fg_color
+    fg[INSENSITIVE] = shade(0.6, @fg_color)
+
+    engine "murrine" {
+        contrast = 0.8
+        roundness = 3
+        border_shades = { 1.0, 0.9 }
+    }
+}
+
+style "entry" {
+    xthickness = 3
+    ythickness = 3
+
+    bg[NORMAL]      = @base_color
+    bg[PRELIGHT]    = @base_color
+    bg[ACTIVE]      = @base_color
+    bg[SELECTED]    = @selected_bg_color
+    bg[INSENSITIVE] = shade(0.95, @bg_color)
+
+    base[NORMAL]      = @base_color
+    base[PRELIGHT]    = @base_color
+    base[ACTIVE]      = @selected_bg_color
+    base[SELECTED]    = @selected_bg_color
+    base[INSENSITIVE] = shade(0.95, @bg_color)
+
+    engine "murrine" {
+        contrast = 0.4
+        roundness = 3
+        border_shades = { 1.0, 1.0 }
+    }
+}
+
+style "notebook" {
+    xthickness = 2
+    ythickness = 2
+
+    bg[NORMAL]      = @bg_color
+    bg[ACTIVE]      = shade(0.95, @bg_color)
+    bg[PRELIGHT]    = shade(1.05, @bg_color)
+
+    engine "murrine" {
+        contrast = 0.8
+        roundness = 3
+    }
+}
+
+style "menu" {
+    xthickness = 0
+    ythickness = 0
+
+    bg[NORMAL]   = @menu_bg
+    fg[NORMAL]   = @fg_color
+    text[NORMAL] = @fg_color
+
+    engine "murrine" {
+        roundness = 0
+    }
+}
+
+style "menubar" {
+    bg[NORMAL] = @toolbar_bg
+
+    engine "murrine" {
+        roundness = 0
+    }
+}
+
+style "menuitem" {
+    xthickness = 2
+    ythickness = 3
+
+    bg[PRELIGHT]   = @selected_bg_color
+    fg[PRELIGHT]   = @selected_fg_color
+    text[PRELIGHT] = @selected_fg_color
+
+    engine "murrine" {
+        roundness = 3
+    }
+}
+
+style "scrollbar" {
+    bg[NORMAL]      = shade(0.95, @bg_color)
+    bg[PRELIGHT]    = @accent_teal
+    bg[ACTIVE]      = @selected_bg_color
+
+    engine "murrine" {
+        roundness = 6
+        contrast = 0.8
+        border_shades = { 1.0, 0.9 }
+    }
+}
+
+style "progressbar" {
+    xthickness = 1
+    ythickness = 1
+
+    bg[SELECTED] = @accent_teal
+    fg[PRELIGHT] = @selected_fg_color
+
+    engine "murrine" {
+        roundness = 3
+        contrast = 0.8
+    }
+}
+
+style "toolbar" {
+    bg[NORMAL] = @toolbar_bg
+
+    engine "murrine" {
+        roundness = 0
+    }
+}
+
+style "tooltips" {
+    xthickness = 8
+    ythickness = 4
+
+    bg[NORMAL] = @tooltip_bg_color
+    fg[NORMAL] = @tooltip_fg_color
+
+    engine "murrine" {
+        roundness = 3
+    }
+}
+
+style "treeview" {
+    engine "murrine" {
+        roundness = 0
+    }
+}
+
+style "scale" {
+    bg[NORMAL]      = shade(0.95, @bg_color)
+    bg[PRELIGHT]    = @accent_teal
+    bg[ACTIVE]      = @selected_bg_color
+    bg[SELECTED]    = @accent_teal
+
+    engine "murrine" {
+        roundness = 8
+        contrast = 0.8
+    }
+}
+
+# Widget style assignments
+class "GtkWidget"           style "default"
+class "GtkButton"           style "button"
+class "GtkEntry"            style "entry"
+class "GtkNotebook"         style "notebook"
+class "GtkMenu"             style "menu"
+class "GtkMenuBar"          style "menubar"
+class "GtkMenuItem"         style "menuitem"
+class "GtkScrollbar"        style "scrollbar"
+class "GtkProgressBar"      style "progressbar"
+class "GtkToolbar"          style "toolbar"
+class "GtkTreeView"         style "treeview"
+class "GtkScale"            style "scale"
+
+widget "gtk-tooltip*"       style "tooltips"
+widget_class "*<GtkMenu>*"              style "menu"
+widget_class "*<GtkMenuItem>*"          style "menuitem"
+widget_class "*<GtkMenuBar>*"           style "menubar"
+widget_class "*<GtkScrollbar>*"         style "scrollbar"
+widget_class "*<GtkProgressBar>*"       style "progressbar"
+widget_class "*<GtkNotebook>*"          style "notebook"
+widget_class "*<GtkButton>*"            style "button"
+widget_class "*<GtkEntry>*"             style "entry"
+widget_class "*<GtkToolbar>*"           style "toolbar"
+widget_class "*<GtkTreeView>*"          style "treeview"
+widget_class "*<GtkScale>*"             style "scale"
